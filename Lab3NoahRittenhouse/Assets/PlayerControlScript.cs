@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControlScript : MonoBehaviour
 {
+    GameTracker gcInstance;
     float movementSpeed;
     float rotationSpeed;
     float jumpForce;
@@ -17,17 +18,18 @@ public class PlayerControlScript : MonoBehaviour
     float shootTimer;
 
     public bool player1;
-
+    int health;
     // Start is called before the first frame update
     void Start()
     {
+        gcInstance = GameTracker.gcInstance;
         grounded = false;
         movementSpeed = 0.2f;
         rotationSpeed = 2.0f;
         shootTimer = 0.4f;
         jumpForce = 500.0f;
-
-        if(!player1 && GameTracker.numPlayers <= 1)
+        health = 20;
+        if(!player1 && gcInstance.numPlayers <= 1)
         {
             gameObject.SetActive(false);
         }
@@ -93,5 +95,10 @@ public class PlayerControlScript : MonoBehaviour
         {
             grounded = true;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 }

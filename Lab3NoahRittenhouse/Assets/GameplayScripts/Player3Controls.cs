@@ -18,8 +18,7 @@ public class Player3Controls : MonoBehaviour
     {
         setSpawn,//Setup
         beginBattle,//Wait time
-        battleBegun,//Battle time
-        battleOver//End time
+        battleBegun//Battle time
     }
     playerState currentState = playerState.setSpawn;
 
@@ -43,7 +42,7 @@ public class Player3Controls : MonoBehaviour
             spawnpointButtons.Add(player3HUD.Find("SpawnButtons").transform.GetChild(i + 1));
         }
         goons = new List<GameObject>();
-        goonCount = 50;
+        goonCount = 100;
         goonPrefab = Resources.Load("Goon") as GameObject;
         goonParent = transform.Find("Goons");
         spawnpoint = null;
@@ -110,8 +109,6 @@ public class Player3Controls : MonoBehaviour
 
                     #endregion
                     break;
-                case playerState.battleOver:
-                    break;
                 default:
                     break;
             }
@@ -136,21 +133,6 @@ public class Player3Controls : MonoBehaviour
                 case playerState.battleBegun:
                     //Find players
                     GameObject[] players = GameObject.FindGameObjectsWithTag("Team1");
-                    if (doOnce)
-                    {
-                        for (int i = 0; i < goons.Count; i++)
-                        {
-                            if (i < goons.Count / 2)
-                            {
-                                MovementOrder(players[0].transform.position, i);
-                            }
-                            else
-                            {
-                                MovementOrder(players[1].transform.position, i);
-                            }
-                        }
-                        doOnce = false;
-                    }
                     if(players.Length == 1)
                     {
                         if (players[0].gameObject.activeInHierarchy)
@@ -176,8 +158,6 @@ public class Player3Controls : MonoBehaviour
                             }
                         }
                     }
-                    break;
-                case playerState.battleOver:
                     break;
                 default:
                     break;
