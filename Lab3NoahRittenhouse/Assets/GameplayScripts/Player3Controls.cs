@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class Player3Controls : MonoBehaviour
 {
+    GameTracker gcInstance;
     Camera player3Camera;
     List<Transform> physicalSpawnpoints, virtualSpawnpoints, spawnpointButtons;
     List<GameObject> goons;
@@ -26,7 +27,15 @@ public class Player3Controls : MonoBehaviour
 
     void Start()
     {
-        isAI = false;
+        gcInstance = GameTracker.gcInstance;
+        if (gcInstance.numPlayers > 2)
+        {
+            isAI = false;
+        }
+        else
+        {
+            isAI = true;
+        }
         //Set camera
         player3Camera = transform.GetChild(0).GetComponent<Camera>();
         //Set HUD
@@ -42,7 +51,7 @@ public class Player3Controls : MonoBehaviour
             spawnpointButtons.Add(player3HUD.Find("SpawnButtons").transform.GetChild(i + 1));
         }
         goons = new List<GameObject>();
-        goonCount = 100;
+        goonCount = gcInstance.numGoons;
         goonPrefab = Resources.Load("Goon") as GameObject;
         goonParent = transform.Find("Goons");
         spawnpoint = null;

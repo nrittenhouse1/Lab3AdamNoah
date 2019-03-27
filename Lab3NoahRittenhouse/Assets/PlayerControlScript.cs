@@ -49,6 +49,11 @@ public class PlayerControlScript : MonoBehaviour
         {
             shootTimer -= Time.deltaTime;
         }
+        if(health <= 0)
+        {
+            gcInstance.numTeam1--;
+            this.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
