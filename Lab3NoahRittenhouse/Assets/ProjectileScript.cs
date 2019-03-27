@@ -37,6 +37,7 @@ public class ProjectileScript : MonoBehaviour
             Debug.Log("Ouch Team2");
             collision.collider.gameObject.GetComponent<GoonScript>().TakeDamage();
             gameObject.SetActive(false);
+
         }
     }
 

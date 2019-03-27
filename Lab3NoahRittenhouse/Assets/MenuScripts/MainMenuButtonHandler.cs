@@ -16,7 +16,7 @@ public class MainMenuButtonHandler : MonoBehaviour
 
     #region Button Methods
 
-    public void PlayGame()//Loads first level
+    public void PlayGame(int numPlayers)//Loads first level
     {
         SceneManager.LoadScene(1);
     }

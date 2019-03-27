@@ -26,6 +26,11 @@ public class PlayerControlScript : MonoBehaviour
         rotationSpeed = 2.0f;
         shootTimer = 0.4f;
         jumpForce = 500.0f;
+
+        if(!player1 && GameTracker.numPlayers <= 1)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     void Update()
