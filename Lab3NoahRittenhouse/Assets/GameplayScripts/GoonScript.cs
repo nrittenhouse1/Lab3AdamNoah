@@ -5,9 +5,13 @@ using UnityEngine;
 public class GoonScript : MonoBehaviour
 {
     int damage;
+
+    int hp;
+
     void Start()
     {
         damage = 2;
+        hp = 2;
     }
     
     void Update()
@@ -16,9 +20,18 @@ public class GoonScript : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Player")
+
+    }
+
+    public void TakeDamage()
+    {
+        if(hp > 1)
         {
-            other.GetComponent<PlayerOneTwoScript>().TakeDamage(damage);
+            hp -= 1;
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 }
