@@ -39,7 +39,18 @@ public class MainMenuButtonHandler : MonoBehaviour
     public void PlayGame(int numPlayer)//Loads first level
     {
         gcInstance.numPlayers = numPlayer;
-        gcInstance.numTeam1 = numPlayer;
+        if (numPlayer <= 2)
+        {
+            gcInstance.numTeam1 = numPlayer;
+        }
+        else
+        {
+            gcInstance.numTeam1 = 2;
+        }
+        gcInstance.doOnce = true;
+        gcInstance.team1Win = false;
+        gcInstance.team2Win = false;
+        gcInstance.numGoons = 20;
         SceneManager.LoadScene(1);
     }
     public void ExitGame()//Quits game

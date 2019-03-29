@@ -9,7 +9,7 @@ public class Player3Controls : MonoBehaviour
     GameTracker gcInstance;
     Camera player3Camera;
     List<Transform> physicalSpawnpoints, virtualSpawnpoints, spawnpointButtons;
-    List<GameObject> goons;
+    List<GameObject> goons, spawnWalls;
     Transform spawnpoint, virtualSpawnpoint, spIndicator, playerIndicator, player3HUD, goonParent;
     GameObject battleButton, pauseButton, goonPrefab, movementIndicatorPrefab;
     int goonCount;
@@ -50,6 +50,11 @@ public class Player3Controls : MonoBehaviour
             virtualSpawnpoints.Add(player3HUD.Find("VirtualSpawns").transform.GetChild(i));
             spawnpointButtons.Add(player3HUD.Find("SpawnButtons").transform.GetChild(i + 1));
         }
+        spawnWalls = new List<GameObject>();
+        foreach (GameObject wall in GameObject.FindGameObjectsWithTag("SpawnWall"))
+        {
+            spawnWalls.Add(wall);
+        }
         goons = new List<GameObject>();
         goonCount = gcInstance.numGoons;
         goonPrefab = Resources.Load("Goon") as GameObject;
@@ -69,7 +74,7 @@ public class Player3Controls : MonoBehaviour
         {
             isAI = !isAI;
         }
-        Debug.Log("Is the AI on? " + isAI);
+        //Debug.Log("Is the AI on? " + isAI);
         if (!isAI)//If AI is not on
         {
             switch (currentState)
@@ -142,7 +147,7 @@ public class Player3Controls : MonoBehaviour
                 case playerState.battleBegun:
                     //Find players
                     GameObject[] players = GameObject.FindGameObjectsWithTag("Team1");
-                    if(players.Length == 1)
+                    if (players.Length == 1)
                     {
                         if (players[0].gameObject.activeInHierarchy)
                         {
@@ -188,6 +193,10 @@ public class Player3Controls : MonoBehaviour
     {
         doOnce = true;
         currentState = playerState.battleBegun;
+        foreach (GameObject wall in spawnWalls)
+        {
+            wall.SetActive(false);
+        }
         //Spawn goons
         for (int i = 0; i < goonCount; i++)
         {
